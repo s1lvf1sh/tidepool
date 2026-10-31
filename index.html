@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tidepool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app">
+  <section id="stage">
+    <canvas id="pool" aria-label="The tidepool"></canvas>
+    <div id="hud"></div>
+    <div id="toolbar" role="toolbar" aria-label="Tools">
+      <button data-tool="inspect" class="active" title="Click a creature to inspect it; drag to pan (I)">Inspect</button>
+      <button data-tool="food" title="Click or drag to grow algae (G)">Grow algae</button>
+      <button data-tool="nutrients" title="Click or drag to fertilise the water (N)">Fertilise</button>
+      <button data-tool="hunters" title="Click to release a pack of hunters (H)">Release hunters</button>
+      <span class="sep"></span>
+      <button id="storm" title="Scatter everything">Storm</button>
+      <button id="fit" title="Fit the pool to the screen">Fit view</button>
+    </div>
+    <div id="hint">drag to pan · scroll to zoom · space to pause · F to follow</div>
+  </section>
+
+  <aside id="side">
+    <header class="panel">
+      <h1>Tidepool</h1>
+      <p class="sub">A pool of tiny neural networks with no scripted behaviour. Everything they do evolved.</p>
+      <div class="row">
+        <button id="play" class="wide">Pause</button>
+        <div id="speeds" class="seg" role="group" aria-label="Speed">
+          <button data-speed="1">1×</button><button data-speed="2">2×</button><button data-speed="4">4×</button><button data-speed="8">8×</button><button data-speed="16">16×</button><button data-speed="32">32×</button>
+        </div>
+      </div>
+      <div class="row">
+        <label for="seed" class="small">Seed</label>
+        <input id="seed" spellcheck="false" autocomplete="off">
+        <button id="restart" title="Start a new pool from this seed">New pool</button>
+        <button id="random-seed" title="New pool with a random seed">🎲</button>
+      </div>
+    </header>
+
+    <section class="panel">
+      <h2>Environment</h2>
+      <label class="slider">Temperature <output id="temperature-out"></output>
+        <input type="range" id="temperature" min="0" max="1" step="0.01">
+      </label>
+      <label class="slider">Nutrients <output id="nutrients-out"></output>
+        <input type="range" id="nutrients" min="0.2" max="2" step="0.01">
+      </label>
+      <label class="slider">Mutation <output id="mutation-out"></output>
+        <input type="range" id="mutation" min="0" max="3" step="0.01">
+      </label>
+      <label class="check"><input type="checkbox" id="autoSeed"> Reseed with random creatures if the pool nearly dies out</label>
+    </section>
+
+    <section class="panel">
+      <h2>Population <span class="small">by species · dashed = algae</span></h2>
+      <canvas id="popchart" class="chart"></canvas>
+      <div id="legend"></div>
+      <div id="stats"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Family tree <span class="small">click a living species</span></h2>
+      <canvas id="tree" class="chart tall"></canvas>
+    </section>
+
+    <section class="panel" id="inspector">
+      <h2>Inspector</h2>
+      <p id="inspect-empty" class="small">Click a creature to see its genes and watch it think.</p>
+      <div id="inspect-body" hidden>
+        <div class="who"><span id="i-swatch" class="swatch"></span><strong id="i-name"></strong><span id="i-status" class="small"></span></div>
+        <dl id="i-facts"></dl>
+        <div class="bar"><span id="i-energy"></span></div>
+        <div id="i-traits"></div>
+        <canvas id="brain" class="chart brain"></canvas>
+        <div class="row">
+          <button id="i-follow">Follow</button>
+          <button id="i-clone" title="Release 5 exact copies next to it">Clone ×5</button>
+          <button id="i-export" title="Copy this genome as JSON">Export</button>
+          <button id="i-close">Close</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Import a creature</h2>
+      <textarea id="import-text" rows="3" placeholder="Paste an exported genome here…" spellcheck="false"></textarea>
+      <div class="row">
+        <button id="import" class="wide">Release 3 into the pool</button>
+      </div>
+      <p id="import-msg" class="small"></p>
+    </section>
+  </aside>
+</main>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

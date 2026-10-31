@@ -1,0 +1,11 @@
+{
+  "name": "tidepool",
+  "version": "1.0.0",
+  "description": "An artificial-life tidepool where tiny neural-network creatures evolve.",
+  "type": "module",
+  "scripts": {
+    "start": "node serve.mjs",
+    "test": "node test/evolution.test.mjs"
+  },
+  "license": "MIT"
+}
